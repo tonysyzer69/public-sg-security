@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+         {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                 "ec2:RevokeSecurityGroupEgress"
+            ],
+            "Resource": [
+                "arn:aws:ec2:us-east-1:*:security-group/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/IsPublicSG": "PublicFacingSG"
+                }
+            }
+        }
+    ]
+}
